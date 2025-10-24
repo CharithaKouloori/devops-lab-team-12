@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Flavor Junction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .menu-item {
+            transition: all 0.3s ease;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+        }
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            min-width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 0 6px;
+        }
+        .cuisine-tab {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .cuisine-tab:hover:not(.active) {
+            background: #fed7aa;
+        }
+        .cuisine-tab.active {
+            background: #f97316;
+            color: white;
+        }
+        .type-filter {
+            cursor: pointer;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        .cart-open {
+            animation: slideIn 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="sticky-nav bg-white/95 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition">
+                        <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center shadow-md">
+                            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.1 13.34l2.83-2.83L3.91 3.5a4.008 4.008 0 0 0 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900">Flavor Junction</h1>
+                            <p class="text-xs text-gray-500">Multi-Cuisine Restaurant</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="hidden md:inline-flex items-center gap-2 text-gray-600 hover:text-orange-500 font-medium transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                        Back to Home
+                    </a>
+                    <button onclick="toggleCart()" class="relative bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-lg transition shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <span id="cartCount" class="cart-badge">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-orange-500 to-red-500 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                <span>🍽</span> Fresh & Authentic
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold mb-3">Our Complete Menu</h2>
+            <p class="text-lg md:text-xl text-white/90">6 Global Cuisines • 36+ Delicious Dishes • Order Now</p>
+        </div>
+    </section>
+
+    <!-- Cuisine Tabs -->
+    <section class="bg-white shadow-sm sticky top-[88px] z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex overflow-x-auto gap-3 pb-2 scrollbar-hide">
+                <button onclick="filterByCuisine(event, 'all')" class="cuisine-tab active px-6 py-2.5 rounded-full font-semibold whitespace-nowrap">
+                    All Items
+                </button>
+                <button onclick="filterByCuisine(event, 'italian')" class="cuisine-tab px-6 py-2.5 rounded-full font-semibold whitespace-nowrap bg-gray-100 text-gray-700">
+                    🍝 Italian
+                </button>
+                <button onclick="filterByCuisine(event, 'chinese')" class="cuisine-tab px-6 py-2.5 rounded-full font-semibold whitespace-nowrap bg-gray-100 text-gray-700">
+                    🥡 Chinese
+                </button>
+                <button onclick="filterByCuisine(event, 'indian')" class="cuisine-tab px-6 py-2.5 rounded-full font-semibold whitespace-nowrap bg-gray-100 text-gray-700">
+                    🍛 Indian
+                </button>
+                <button onclick="filterByCuisine(event, 'mexican')" class="cuisine-tab px-6 py-2.5 rounded-full font-semibold whitespace-nowrap bg-gray-100 text-gray-700">
+                    🌮 Mexican
+                </button>
+                <button onclick="filterByCuisine(event, 'japanese')" class="cuisine-tab px-6 py-2.5 rounded-full font-semibold whitespace-nowrap bg-gray-100 text-gray-700">
+                    🍣 Japanese
+                </button>
+                <button onclick="filterByCuisine(event, 'american')" class="cuisine-tab px-6 py-2.5 rounded-full font-semibold whitespace-nowrap bg-gray-100 text-gray-700">
+                    🍔 American
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="bg-gray-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 py-5">
+            <div class="flex flex-wrap items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <label class="font-semibold text-gray-700">Dietary:</label>
+                    <button onclick="filterByType(event, 'all')" class="type-filter active px-5 py-2.5 rounded-lg font-medium transition bg-orange-500 text-white shadow-sm">
+                        All
+                    </button>
+                    <button onclick="filterByType(event, 'veg')" class="type-filter px-5 py-2.5 rounded-lg font-medium transition bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 shadow-sm">
+                        🟢 Veg
+                    </button>
+                    <button onclick="filterByType(event, 'nonveg')" class="type-filter px-5 py-2.5 rounded-lg font-medium transition bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 shadow-sm">
+                        🔴 Non-Veg
+                    </button>
+                </div>
+                <div class="flex-1"></div>
+                <div class="relative">
+                    <input type="text" id="searchInput" placeholder="Search dishes..." class="pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 w-64 transition">
+                    <svg class="w-5 h-5 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Items -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div id="menuContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Menu items will be dynamically inserted here -->
+            </div>
+            <div id="noResults" class="hidden text-center py-16">
+                <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">No dishes found</h3>
+                <p class="text-gray-600">Try adjusting your filters or search term</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="flex flex-col h-full">
+            <div class="p-6 border-b border-gray-200 bg-gradient-to-r from-orange-500 to-red-500">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-2xl font-bold text-white">Your Cart</h3>
+                    <button onclick="toggleCart()" class="text-white hover:text-gray-200 transition">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div id="cartItems" class="flex-1 overflow-y-auto p-6">
+                <div class="text-center text-gray-400 py-12">
+                    <svg class="w-20 h-20 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                    </svg>
+                    <p class="text-lg font-medium">Your cart is empty</p>
+                    <p class="text-sm text-gray-400 mt-2">Add items to get started</p>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 bg-gray-50">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-bold text-gray-700">Total Amount:</span>
+                    <span id="cartTotal" class="text-3xl font-bold text-orange-500">₹0</span>
+                </div>
+                <button onclick="proceedToOrder()" class="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white py-4 rounded-lg font-bold transition shadow-lg">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div id="cartOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity" onclick="toggleCart()"></div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.1 13.34l2.83-2.83L3.91 3.5a4.008 4.008 0 0 0 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/>
+                            </svg>
+                        </div>
+                        <span class="font-bold text-xl">Flavor Junction</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">Experience authentic global cuisine in the heart of Hyderabad</p>
+                </div>
+                <div>
+                    <h6 class="font-bold mb-4">Quick Links</h6>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="index.html" class="hover:text-orange-400 transition">Home</a></li>
+                        <li><a href="menu.html" class="hover:text-orange-400 transition">Our Menu</a></li>
+                        <li><a href="reserve.html" class="hover:text-orange-400 transition">Reservations</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="font-bold mb-4">Opening Hours</h6>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>Monday - Sunday</li>
+                        <li>10:00 AM - 11:00 PM</li>
+                        <li class="pt-2 text-orange-400">Kitchen closes at 10:30 PM</li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="font-bold mb-4">Follow Us</h6>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-orange-500 transition">
+                            <span class="text-lg">f</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-orange-500 transition">
+                            <span class="text-lg">𝕏</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-orange-500 transition">
+                            <span class="text-lg">in</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2025 Flavor Junction. All rights reserved.</p>
+                <p class="mt-2">Developed by: <span class="text-orange-400">Ashrith Reddy</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Complete menu data for all cuisines
+        const allMenuItems = [
+            // Italian
+            { id: 1, name: 'Margherita Pizza', desc: 'Classic tomato, mozzarella & basil', price: 299, type: 'veg', cuisine: 'italian', popular: true, spice: 0 },
+            { id: 2, name: 'Pepperoni Pizza', desc: 'Spicy pepperoni with cheese', price: 399, type: 'nonveg', cuisine: 'italian', popular: true, spice: 1 },
+            { id: 3, name: 'Spaghetti Carbonara', desc: 'Creamy pasta with bacon & parmesan', price: 349, type: 'nonveg', cuisine: 'italian', popular: false, spice: 0 },
+            { id: 4, name: 'Penne Arrabbiata', desc: 'Spicy tomato sauce pasta', price: 279, type: 'veg', cuisine: 'italian', popular: false, spice: 2 },
+            { id: 5, name: 'Lasagna', desc: 'Layered pasta with meat & cheese', price: 429, type: 'nonveg', cuisine: 'italian', popular: true, spice: 0 },
+            { id: 6, name: 'Mushroom Risotto', desc: 'Creamy rice with mushrooms', price: 359, type: 'veg', cuisine: 'italian', popular: false, spice: 0 },
+            // Chinese
+            { id: 7, name: 'Veg Fried Rice', desc: 'Stir-fried rice with vegetables', price: 199, type: 'veg', cuisine: 'chinese', popular: true, spice: 1 },
+            { id: 8, name: 'Chicken Fried Rice', desc: 'Fried rice with chicken chunks', price: 249, type: 'nonveg', cuisine: 'chinese', popular: true, spice: 1 },
+            { id: 9, name: 'Veg Manchurian', desc: 'Spicy vegetable balls in sauce', price: 229, type: 'veg', cuisine: 'chinese', popular: true, spice: 2 },
+            { id: 10, name: 'Chicken Noodles', desc: 'Hakka noodles with chicken', price: 269, type: 'nonveg', cuisine: 'chinese', popular: false, spice: 1 },
+            { id: 11, name: 'Spring Rolls', desc: 'Crispy vegetable rolls', price: 179, type: 'veg', cuisine: 'chinese', popular: false, spice: 0 },
+            { id: 12, name: 'Sweet & Sour Chicken', desc: 'Chicken in tangy sauce', price: 319, type: 'nonveg', cuisine: 'chinese', popular: true, spice: 1 },
+            // Indian
+            { id: 13, name: 'Butter Chicken', desc: 'Creamy tomato curry with chicken', price: 349, type: 'nonveg', cuisine: 'indian', popular: true, spice: 1 },
+            { id: 14, name: 'Paneer Tikka Masala', desc: 'Cottage cheese in spicy gravy', price: 299, type: 'veg', cuisine: 'indian', popular: true, spice: 2 },
+            { id: 15, name: 'Chicken Biryani', desc: 'Aromatic rice with chicken', price: 329, type: 'nonveg', cuisine: 'indian', popular: true, spice: 2 },
+            { id: 16, name: 'Veg Biryani', desc: 'Fragrant rice with mixed vegetables', price: 259, type: 'veg', cuisine: 'indian', popular: false, spice: 1 },
+            { id: 17, name: 'Dal Makhani', desc: 'Creamy black lentils', price: 229, type: 'veg', cuisine: 'indian', popular: false, spice: 1 },
+            { id: 18, name: 'Tandoori Chicken', desc: 'Clay oven roasted chicken', price: 379, type: 'nonveg', cuisine: 'indian', popular: true, spice: 2 },
+            // Mexican
+            { id: 19, name: 'Chicken Tacos', desc: 'Soft tacos with grilled chicken', price: 279, type: 'nonveg', cuisine: 'mexican', popular: true, spice: 2 },
+            { id: 20, name: 'Veg Burrito', desc: 'Wrapped tortilla with beans & veggies', price: 249, type: 'veg', cuisine: 'mexican', popular: true, spice: 1 },
+            { id: 21, name: 'Beef Quesadilla', desc: 'Grilled tortilla with beef & cheese', price: 329, type: 'nonveg', cuisine: 'mexican', popular: false, spice: 2 },
+            { id: 22, name: 'Nachos Supreme', desc: 'Crispy chips with toppings', price: 229, type: 'veg', cuisine: 'mexican', popular: true, spice: 1 },
+            { id: 23, name: 'Chicken Enchiladas', desc: 'Rolled tortillas with chicken', price: 299, type: 'nonveg', cuisine: 'mexican', popular: false, spice: 2 },
+            { id: 24, name: 'Guacamole & Chips', desc: 'Fresh avocado dip with tortilla chips', price: 179, type: 'veg', cuisine: 'mexican', popular: false, spice: 0 },
+            // Japanese
+            { id: 25, name: 'California Roll', desc: 'Sushi with crab & avocado', price: 349, type: 'nonveg', cuisine: 'japanese', popular: true, spice: 0 },
+            { id: 26, name: 'Veg Sushi Roll', desc: 'Fresh vegetable sushi', price: 279, type: 'veg', cuisine: 'japanese', popular: false, spice: 0 },
+            { id: 27, name: 'Chicken Ramen', desc: 'Noodle soup with chicken', price: 329, type: 'nonveg', cuisine: 'japanese', popular: true, spice: 1 },
+            { id: 28, name: 'Teriyaki Chicken', desc: 'Grilled chicken with teriyaki sauce', price: 359, type: 'nonveg', cuisine: 'japanese', popular: true, spice: 0 },
+            { id: 29, name: 'Tempura Vegetables', desc: 'Crispy battered vegetables', price: 259, type: 'veg', cuisine: 'japanese', popular: false, spice: 0 },
+            { id: 30, name: 'Salmon Sashimi', desc: 'Fresh raw salmon slices', price: 449, type: 'nonveg', cuisine: 'japanese', popular: false, spice: 0 },
+            // American
+            { id: 31, name: 'Classic Burger', desc: 'Beef patty with cheese & lettuce', price: 249, type: 'nonveg', cuisine: 'american', popular: true, spice: 0 },
+            { id: 32, name: 'Veggie Burger', desc: 'Plant-based patty burger', price: 219, type: 'veg', cuisine: 'american', popular: false, spice: 0 },
+            { id: 33, name: 'BBQ Ribs', desc: 'Tender pork ribs with BBQ sauce', price: 449, type: 'nonveg', cuisine: 'american', popular: true, spice: 1 },
+            { id: 34, name: 'Chicken Wings', desc: 'Crispy fried chicken wings', price: 299, type: 'nonveg', cuisine: 'american', popular: true, spice: 2 },
+            { id: 35, name: 'French Fries', desc: 'Crispy golden fries', price: 129, type: 'veg', cuisine: 'american', popular: false, spice: 0 },
+            { id: 36, name: 'Grilled Steak', desc: 'Juicy beef steak grilled to perfection', price: 549, type: 'nonveg', cuisine: 'american', popular: true, spice: 0 }
+        ];
+
+        let cart = [];
+        let currentCuisineFilter = 'all';
+        let currentTypeFilter = 'all';
+
+        // Display menu items
+        function displayMenu(searchTerm = '') {
+            const container = document.getElementById('menuContainer');
+            const noResults = document.getElementById('noResults');
+            let items = allMenuItems;
+
+            // Filter by cuisine
+            if (currentCuisineFilter !== 'all') {
+                items = items.filter(item => item.cuisine === currentCuisineFilter);
+            }
+
+            // Filter by type
+            if (currentTypeFilter !== 'all') {
+                items = items.filter(item => item.type === currentTypeFilter);
+            }
+
+            // Filter by search term
+            if (searchTerm) {
+                items = items.filter(item => 
+                    item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                    item.desc.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+
+            // Show/hide no results message
+            if (items.length === 0) {
+                container.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                container.classList.remove('hidden');
+                noResults.classList.add('hidden');
+            }
+
+            container.innerHTML = items.map(item => `
+                <div class="menu-item bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2 flex-wrap">
+                                    <span class="text-lg">${item.type === 'veg' ? '🟢' : '🔴'}</span>
+                                    <h4 class="text-xl font-bold text-gray-900">${item.name}</h4>
+                                    ${item.popular ? '<span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded-full font-semibold">⭐ Popular</span>' : ''}
+                                </div>
+                                <p class="text-gray-600 text-sm mb-3">${item.desc}</p>
+                                ${item.spice > 0 ? `
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="text-red-500">${'🌶'.repeat(item.spice)}</span>
+                                    <span class="text-xs text-gray-500">Spice Level ${item.spice}</span>
+                                </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center pt-3 border-t border-gray-100">
+                            <span class="text-2xl font-bold text-orange-500">₹${item.price}</span>
+                            <button onclick="addToCart(${item.id})" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-2.5 rounded-lg font-semibold transition shadow-md flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                </svg>
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter by cuisine
+        function filterByCuisine(event, cuisine) {
+            currentCuisineFilter = cuisine;
+            displayMenu(document.getElementById('searchInput').value);
+
+            // Update tab styling
+            document.querySelectorAll('.cuisine-tab').forEach(btn => {
+                btn.classList.remove('active', 'bg-orange-500', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+            event.target.classList.remove('bg-gray-100', 'text-gray-700');
+            event.target.classList.add('active', 'bg-orange-500', 'text-white');
+        }
+
+        // Filter by type
+        function filterByType(event, type) {
+            currentTypeFilter = type;
+            displayMenu(document.getElementById('searchInput').value);
+
+            // Update filter buttons
+            document.querySelectorAll('.type-filter').forEach(btn => {
+                btn.classList.remove('active', 'bg-orange-500', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-200');
+            });
+            event.target.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-200');
+            event.target.classList.add('active', 'bg-orange-500', 'text-white', 'shadow-sm');
+        }
+
+        // Add to cart
+        function addToCart(itemId) {
+            const item = allMenuItems.find(i => i.id === itemId);
+
+            if (!item) {
+                console.error('Item not found:', itemId);
+                return;
+            }
+
+            const existingItem = cart.find(i => i.id === itemId);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...item, quantity: 1 });
+            }
+
+            updateCart();
+            showNotification(`${item.name} added to cart!`);
+        }
+
+        // Update cart display
+        function updateCart() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            cartCount.textContent = totalItems;
+            cartTotal.textContent = `₹${totalPrice}`;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="text-center text-gray-400 py-12">
+                        <svg class="w-20 h-20 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                        </svg>
+                        <p class="text-lg font-medium">Your cart is empty</p>
+                        <p class="text-sm text-gray-400 mt-2">Add items to get started</p>
+                    </div>
+                `;
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
+                        <div class="flex gap-4">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-sm">${item.type === 'veg' ? '🟢' : '🔴'}</span>
+                                    <h5 class="font-bold text-gray-900">${item.name}</h5>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">₹${item.price} × ${item.quantity}</p>
+                                <div class="flex items-center gap-3">
+                                    <button onclick="updateQuantity(${item.id}, -1)" class="w-8 h-8 bg-white hover:bg-gray-100 border border-gray-300 rounded-full flex items-center justify-center transition shadow-sm">
+                                        <span class="text-lg font-bold text-gray-700">−</span>
+                                    </button>
+                                    <span class="font-bold text-gray-900 min-w-[20px] text-center">${item.quantity}</span>
+                                    <button onclick="updateQuantity(${item.id}, 1)" class="w-8 h-8 bg-orange-500 hover:bg-orange-600 text-white rounded-full flex items-center justify-center transition shadow-sm">
+                                        <span class="text-lg font-bold">+</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="text-right flex flex-col justify-between">
+                                <p class="font-bold text-gray-900 text-lg">₹${item.price * item.quantity}</p>
+                                <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 text-sm font-medium transition">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Update quantity
+        function updateQuantity(itemId, change) {
+            const item = cart.find(i => i.id === itemId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(itemId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        // Remove from cart
+        function removeFromCart(itemId) {
+            const item = cart.find(i => i.id === itemId);
+            cart = cart.filter(item => item.id !== itemId);
+            updateCart();
+            if (item) {
+                showNotification(`${item.name} removed from cart`, 'error');
+            }
+        }
+
+        // Toggle cart sidebar
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+
+            if (sidebar.classList.contains('translate-x-full')) {
+                sidebar.classList.remove('translate-x-full');
+                sidebar.classList.add('cart-open');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.add('translate-x-full');
+                sidebar.classList.remove('cart-open');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Proceed to order
+        function proceedToOrder() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty! Add items first.', 'error');
+                return;
+            }
+
+            // Calculate totals
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            const cartData = {
+                items: cart,
+                totalItems: totalItems,
+                totalAmount: totalAmount,
+                timestamp: new Date().toISOString()
+            };
+
+            // Store cart data in localStorage
+            localStorage.setItem('cartData', JSON.stringify(cartData));
+
+            showNotification('Redirecting to checkout...', 'success');
+
+            // Redirect to order page after short delay
+            setTimeout(() => {
+                window.location.href = 'order.html';
+            }, 800);
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            const bgColor = type === 'error' ? 'bg-red-500' : 'bg-green-500';
+            notification.className = `fixed bottom-8 right-8 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300`;
+            notification.innerHTML = `
+                <div class="flex items-center gap-2">
+                    ${type === 'success' ? 
+                        '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>' :
+                        '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>'
+                    }
+                    <span class="font-medium">${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+
+            // Slide in animation
+            setTimeout(() => {
+                notification.style.transform = 'translateY(-10px)';
+            }, 10);
+
+            // Remove after delay
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 2500);
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value;
+            displayMenu(searchTerm);
+        });
+
+        // Close cart with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const sidebar = document.getElementById('cartSidebar');
+                if (!sidebar.classList.contains('translate-x-full')) {
+                    toggleCart();
+                }
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            displayMenu();
+            updateCart();
+        });
+    </script>
+</body>
+</html>
