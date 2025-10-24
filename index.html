@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flavor Junction - Multi-Cuisine Restaurant in Hyderabad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .cuisine-card {
+            transition: all 0.3s ease;
+        }
+        .cuisine-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+        }
+        
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar - Created by Person 1: Ashwini Bhaavya -->
+    <nav class="sticky-nav bg-white/95 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center shadow-md">
+                        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8.1 13.34l2.83-2.83L3.91 3.5a4.008 4.008 0 0 0 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Flavor Junction</h1>
+                        <p class="text-xs text-gray-500">Multi-Cuisine Restaurant</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center gap-6">
+                    <div class="flex items-center gap-2 text-gray-700">
+                        <svg class="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                        </svg>
+                        <div>
+                            <p class="text-sm font-semibold">10 AM - 11 PM</p>
+                            <p class="text-xs text-gray-500">Daily</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-700">
+                        <svg class="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                        </svg>
+                        <div>
+                            <p class="text-sm font-semibold">Hyderabad, India</p>
+                            
+                        </div>
+                    </div>
+                    <a href="menu.html" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-lg font-semibold transition shadow-md">
+                        View Menu
+                    </a>
+                    <a href="reserve.html" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2.5 rounded-lg font-semibold transition shadow-md">
+                        Reserve Table
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Created by Person 1: Rajesh Kumar -->
+    <section class="hero-section py-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                <span>⭐</span> Hyderabad's Favorite Multi-Cuisine Restaurant
+            </div>
+            <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+                Explore Global Flavors
+            </h2>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                From Italian pasta to Indian curries, discover authentic dishes from six different cuisines under one roof
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 text-sm">
+                <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm">
+                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="font-medium text-gray-700">Fresh Ingredients</span>
+                </div>
+                <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm">
+                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="font-medium text-gray-700">Expert Chefs</span>
+                </div>
+                <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm">
+                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="font-medium text-gray-700">Fast Delivery</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cuisine Selection Section - Created by Person 1: Rajesh Kumar -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900 mb-3">Our Restaurant Highlights</h3>
+                <p class="text-gray-600">Discover what makes Flavor Junction special</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Multi-Cuisine -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 p-8 text-center">
+                    <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">🌍</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-2">6 Global Cuisines</h4>
+                    <p class="text-gray-600 mb-4">Italian, Chinese, Indian, Mexican, Japanese & American dishes</p>
+                </div>
+
+                <!-- Fresh Ingredients -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 p-8 text-center">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">🥬</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-2">Fresh & Organic</h4>
+                    <p class="text-gray-600 mb-4">Premium quality ingredients sourced daily for authentic taste</p>
+                </div>
+
+                <!-- Expert Chefs -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 p-8 text-center">
+                    <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">👨‍🍳</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-2">Expert Chefs</h4>
+                    <p class="text-gray-600 mb-4">Trained culinary experts preparing authentic global flavors</p>
+                </div>
+
+                <!-- Fast Delivery -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 p-8 text-center">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">🚚</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-2">Fast Delivery</h4>
+                    <p class="text-gray-600 mb-4">Quick delivery service within 30-45 minutes</p>
+                </div>
+
+                <!-- Dine-In Experience -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 p-8 text-center">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">🍽</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-2">Dine-In Available</h4>
+                    <p class="text-gray-600 mb-4">Spacious seating with cozy ambiance for families</p>
+                </div>
+
+                <!-- Affordable Pricing -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 p-8 text-center">
+                    <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">💰</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-2">Affordable Prices</h4>
+                    <p class="text-gray-600 mb-4">Quality food at reasonable prices for everyone</p>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center mt-12">
+                <a href="menu.html" class="inline-block bg-orange-500 hover:bg-orange-600 text-white px-12 py-4 rounded-lg font-bold text-lg transition shadow-lg">
+                    Explore Our Complete Menu
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Info Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                        </svg>
+                    </div>
+                    <h5 class="font-bold text-gray-900 mb-2">Call for Reservations</h5>
+                    <p class="text-gray-600 mb-2">+91 98765 43210</p>
+                    <p class="text-sm text-gray-500">Available 10 AM - 11 PM</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h5 class="font-bold text-gray-900 mb-2">Visit Us</h5>
+                    <p class="text-gray-600 mb-2">MG Road, Hyderabad</p>
+                    <p class="text-sm text-gray-500">Telangana, India 500089</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                        </svg>
+                    </div>
+                    <h5 class="font-bold text-gray-900 mb-2">Email Us</h5>
+                    <p class="text-gray-600 mb-2">info@flavorjunction.com</p>
+                    <p class="text-sm text-gray-500">We'll reply within 24 hours</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - Created by Person 1: Rajesh Kumar -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.1 13.34l2.83-2.83L3.91 3.5a4.008 4.008 0 0 0 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/>
+                            </svg>
+                        </div>
+                        <span class="font-bold text-xl">Flavor Junction</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">Experience authentic global cuisine in the heart of Hyderabad</p>
+                </div>
+                
+                <div>
+                    <h6 class="font-bold mb-4">Quick Links</h6>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-orange-400 transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition">Our Menu</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition">Reservations</a></li>
+                        <li><a href="#" class="hover:text-orange-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h6 class="font-bold mb-4">Opening Hours</h6>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>Monday - Sunday</li>
+                        <li>10:00 AM - 11:00 PM</li>
+                        <li class="pt-2 text-orange-400">Kitchen closes at 10:30 PM</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h6 class="font-bold mb-4">Follow Us</h6>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-orange-500 transition">
+                            <span class="text-lg">f</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-orange-500 transition">
+                            <span class="text-lg">𝕏</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-orange-500 transition">
+                            <span class="text-lg">in</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2025 Flavor Junction. All rights reserved.</p>
+                <p class="mt-2">Developed by: <span class="text-orange-400">Aswini Bhaavya</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // No cuisine-specific navigation needed
+    </script>
+</body>
+</html>
